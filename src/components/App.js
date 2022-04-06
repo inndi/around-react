@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-// import ReactDOM from 'react-dom';
-
 
 import '../index.css';
 import Header from "./Header";
@@ -10,12 +8,11 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-
-
-
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isSelectedCard, setIsSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -33,6 +30,12 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsSelectedCard(false);
+  }
+
+  function handleCardClick(card) {
+    setIsSelectedCard(true);
+    setSelectedCard(card);
   }
 
 
@@ -44,6 +47,7 @@ function App() {
           onEditProfileClick={handleEditProfileClick}
           onEditAvatarClick={handleEditAvatarClick}
           onAddPlaceClick={handleAddPlaceClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
 
@@ -74,29 +78,11 @@ function App() {
           <span className="popup__input-error avaLink-input-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm name="delete" title="Are you sure?">
-        </PopupWithForm>
-
-        {/* <ImagePopup /> */}
-
-        <div className="popup popup_card">
-          <div className="popup__card-container">
-            <img src=" " alt=" " className="popup__card-img" onCardClick />
-            <h2 className="popup__card-title"></h2>
-            <button className="popup__close-btn hover-btn" type="button"></button>
-          </div>
-        </div>
+        <PopupWithForm name="delete" title="Are you sure?" />
 
 
-        <template id="card-template">
-          <li className="card">
-            <img src=" " alt=" " className="card__img" />
-            <h2 className="card__title"></h2>
-            <button className="card__like-btn" type="button"></button>
-            <p className="card__likes-amount">0</p>
-            <button className="card__delete-btn hover-btn" type="button"></button>
-          </li>
-        </template>
+        <ImagePopup card={selectedCard} isOpen={isSelectedCard} onClose={closeAllPopups} />
+
       </body>
     </div>
 

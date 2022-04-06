@@ -18,6 +18,15 @@ function Main(props) {
       })
   }, []);
 
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    Api.getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+  }, []);
+
   return (
     <main className="main-content">
       <section className="profile">
@@ -45,7 +54,14 @@ function Main(props) {
       </section>
       <section className="cards">
         <ul className="cards__list">
-          <Card />
+          {cards.map((card) =>
+          (
+            <Card
+              card={card}
+              onCardClick={props.onCardClick}
+            />
+          )
+          )}
         </ul>
       </section>
     </main>
