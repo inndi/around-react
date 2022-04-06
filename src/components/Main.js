@@ -30,8 +30,8 @@ function Main(props) {
   return (
     <main className="main-content">
       <section className="profile">
-        <img alt="photo of profile" className="profile__photo"
-          style={{ backgroundImage: `url(${userAvatar})` }} />
+        <div alt="photo of profile" className="profile__photo"
+          style={{ backgroundImage: `url(${userAvatar})` }}></div>
         <button
           className="profile__edit-avatar-btn"
           type="button"
@@ -59,6 +59,7 @@ function Main(props) {
             <Card
               card={card}
               onCardClick={props.onCardClick}
+              onDeleteClick={props.onDeleteClick}
             />
           )
           )}

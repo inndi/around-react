@@ -11,6 +11,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isSelectedCard, setIsSelectedCard] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -26,10 +27,15 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleDeleteCardClick() {
+    setIsDeleteCardPopupOpen(true);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
     setIsSelectedCard(false);
   }
 
@@ -47,6 +53,7 @@ function App() {
           onEditProfileClick={handleEditProfileClick}
           onEditAvatarClick={handleEditAvatarClick}
           onAddPlaceClick={handleAddPlaceClick}
+          onDeleteClick={handleDeleteCardClick}
           onCardClick={handleCardClick}
         />
         <Footer />
@@ -78,7 +85,8 @@ function App() {
           <span className="popup__input-error avaLink-input-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm name="delete" title="Are you sure?" />
+        <PopupWithForm name="delete" title="Are you sure?"
+          onClose={closeAllPopups} isOpen={isDeleteCardPopupOpen} />
 
 
         <ImagePopup card={selectedCard} isOpen={isSelectedCard} onClose={closeAllPopups} />
