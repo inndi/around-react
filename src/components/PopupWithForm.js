@@ -8,7 +8,7 @@ function PopupWithForm(props) {
         <h2 className="popup__title">{props.title}</h2>
         <form className="popup__form" name={`register-${props.name}`}>
           {props.children}
-          <button className="popup__save-btn" type="submit">Save</button>
+          <button className="popup__save-btn" type="submit">{props.buttonText}</button>
         </form>
         <button className="popup__close-btn hover-btn" onClick={props.onClose} type="button"></button>
       </div>

@@ -5,8 +5,8 @@ function Card(props) {
   }
 
   return (
-    <li className="card" key={props.card._id}>
-      <div src=" " alt=" " className="card__img"
+    <li className="card">
+      <div className="card__img"
         style={{ backgroundImage: `url(${props.card.link})` }}
         onClick={handleClick}></div>
       <h2 className="card__title">{props.card.name}</h2>

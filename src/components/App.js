@@ -47,7 +47,7 @@ function App() {
 
   return (
     <div className="App">
-      <body className="page">
+      <div className="page">
         <Header />
         <Main
           onEditProfileClick={handleEditProfileClick}
@@ -59,39 +59,43 @@ function App() {
         <Footer />
 
         <PopupWithForm name="edit" title="Edit profile"
-          isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-          <input id="name-input" type="text" name="profileName" placeholder="Name" autocomplete="off"
-            className="popup__input popup__input_field_name" minlength="2" maxlength="40" required />
+          isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
+          buttonText='Save'>
+          <input id="name-input" type="text" name="profileName" placeholder="Name" autoComplete="off"
+            className="popup__input popup__input_field_name" minLength="2" maxLength="40" required />
           <span className="popup__input-error name-input-error"></span>
-          <input id="about-input" type="text" name="profileAbout" placeholder="About me" autocomplete="off"
-            className="popup__input popup__input_field_about-me" minlength="2" maxlength="200" required />
+          <input id="about-input" type="text" name="profileAbout" placeholder="About me" autoComplete="off"
+            className="popup__input popup__input_field_about-me" minLength="2" maxLength="200" required />
           <span className="popup__input-error about-input-error"></span>
         </PopupWithForm>
 
         <PopupWithForm name="add" title="New place"
-          isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-          <input id="title-input" type="text" name="placeTitle" placeholder="Title" autocomplete="off"
-            className="popup__input popup__input_field_title" minlength="1" maxlength="30" required />
+          isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}
+          buttonText='Create'>
+          <input id="title-input" type="text" name="placeTitle" placeholder="Title" autoComplete="off"
+            className="popup__input popup__input_field_title" minLength="1" maxLength="30" required />
           <span className="popup__input-error title-input-error"></span>
-          <input id="link-input" type="url" name="placeLink" placeholder="Image link" autocomplete="off"
+          <input id="link-input" type="url" name="placeLink" placeholder="Image link" autoComplete="off"
             className="popup__input popup__input_field_link" required />
           <span className="popup__input-error link-input-error"></span>
         </PopupWithForm>
 
         <PopupWithForm name="edit-photo" title="Change profile picture"
-          isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-          <input id="avaLink-input" type="url" name="avatarLink" placeholder="Avatar link" autocomplete="off"
+          isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
+          buttonText='Save'>
+          <input id="avaLink-input" type="url" name="avatarLink" placeholder="Avatar link" autoComplete="off"
             className="popup__input popup__input_field_link" required />
           <span className="popup__input-error avaLink-input-error"></span>
         </PopupWithForm>
 
         <PopupWithForm name="delete" title="Are you sure?"
-          onClose={closeAllPopups} isOpen={isDeleteCardPopupOpen} />
+          onClose={closeAllPopups} isOpen={isDeleteCardPopupOpen}
+          buttonText='Yes' />
 
 
         <ImagePopup card={selectedCard} isOpen={isSelectedCard} onClose={closeAllPopups} />
 
-      </body>
+      </div>
     </div>
 
   );

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { Api } from "../utils/api";
 import Card from "./Card";
 
 function Main(props) {
 
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
 
   useEffect(() => {
     Api.getMyProfile()
@@ -16,6 +15,9 @@ function Main(props) {
         setUserDescription(profile.about);
         setUserAvatar(profile.avatar);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const [cards, setCards] = useState([]);
@@ -25,12 +27,15 @@ function Main(props) {
       .then((res) => {
         setCards(res);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
     <main className="main-content">
       <section className="profile">
-        <div alt="photo of profile" className="profile__photo"
+        <div className="profile__photo"
           style={{ backgroundImage: `url(${userAvatar})` }}></div>
         <button
           className="profile__edit-avatar-btn"
@@ -57,6 +62,7 @@ function Main(props) {
           {cards.map((card) =>
           (
             <Card
+              key={card._id}
               card={card}
               onCardClick={props.onCardClick}
               onDeleteClick={props.onDeleteClick}
