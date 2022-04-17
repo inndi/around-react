@@ -1,5 +1,5 @@
 .card__delete-btn {
-  /* visibility: hidden; */
+  visibility: hidden;
   padding: 0;
   position: absolute;
   background-color: transparent;

@@ -18,7 +18,7 @@ class ApiRequests {
       .then(this._checkResponse);
   }
 
-  getMyProfile() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
@@ -68,21 +68,38 @@ class ApiRequests {
       .then(this._checkResponse);
   }
 
-  removeLike(itemId) {
-    return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(this._checkResponse);
+  changeLikeCardStatus(itemId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+        .then(this._checkResponse);
+    } else if (!isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+        .then(this._checkResponse);
+    }
   }
 
-  addLike(itemId) {
-    return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-      .then(this._checkResponse);
-  }
+
+  // removeLike(itemId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
+  //     method: 'DELETE',
+  //     headers: this._headers
+  //   })
+  //     .then(this._checkResponse);
+  // }
+
+  // addLike(itemId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
+  //     method: 'PUT',
+  //     headers: this._headers
+  //   })
+  //     .then(this._checkResponse);
+  // }
 }
 
 export const Api = new ApiRequests({

@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Api } from "../utils/api";
+import React, { useEffect, useState, useContext } from 'react';
+import { Api } from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
 
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    Api.getMyProfile()
-      .then((profile) => {
-        setUserName(profile.name);
-        setUserDescription(profile.about);
-        setUserAvatar(profile.avatar);
+  const [cards, setCards] = useState([]);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(user => user._id === currentUser._id);
+    Api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }
 
-  const [cards, setCards] = useState([]);
+  function handleCardDelete(card) {
+
+  }
 
   useEffect(() => {
     Api.getInitialCards()
@@ -36,21 +38,21 @@ function Main(props) {
     <main className="main-content">
       <section className="profile">
         <div className="profile__photo"
-          style={{ backgroundImage: `url(${userAvatar})` }}></div>
+          style={{ backgroundImage: `url(${currentUser.avatar})` }}></div>
         <button
           className="profile__edit-avatar-btn"
           type="button"
           onClick={props.onEditAvatarClick}>
         </button>
         <div className="profile__name-box">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button
             className="profile__edit-btn hover-btn"
             type="button"
             onClick={props.onEditProfileClick}>
           </button>
         </div>
-        <p className="profile__about-me">{userDescription}</p>
+        <p className="profile__about-me">{currentUser.about}</p>
         <button
           className="profile__add-btn hover-btn"
           type="button"
@@ -66,6 +68,8 @@ function Main(props) {
               card={card}
               onCardClick={props.onCardClick}
               onDeleteClick={props.onDeleteClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           )
           )}
