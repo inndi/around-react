@@ -17,8 +17,11 @@ function Card(props) {
 
   function handleLikeClick() {
     props.onCardLike(props.card);
-  }//is work??????????????
+  }
 
+  function handleDeleteClick() {
+    props.onCardDelete(props.card);
+  }
 
   function handleClick() {
     props.onCardClick(props.card);
@@ -34,7 +37,8 @@ function Card(props) {
         onClick={handleLikeClick}></button>
       <p className="card__likes-amount">{props.card.likes.length}</p>
       <button className={cardDeleteButtonClassName}
-        type="button" onClick={props.onDeleteClick}></button>
+        type="button" onClick={handleDeleteClick}></button>
+      {/* onClick={props.onDeleteClick} */}
     </li>
   )
 

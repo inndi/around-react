@@ -20,8 +20,15 @@ function Main(props) {
       });
   }
 
-  function handleCardDelete(card) {
-
+  function handleCardDelete(currentCard) {
+    Api.delete(currentCard._id)
+      .then(() => {
+        const newCards = cards.filter((card) => card._id !== currentCard._id);
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
