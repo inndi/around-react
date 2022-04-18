@@ -50,8 +50,8 @@ class ApiRequests {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: editFields.profileName,
-        about: editFields.profileAbout
+        name: editFields.name,
+        about: editFields.about
       })
     })
       .then(this._checkResponse);

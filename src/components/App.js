@@ -8,6 +8,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { Api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { EditProfilePopup } from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -48,6 +49,19 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleUpdateUser(userInfo) {
+    Api.patchProfileData(userInfo)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     Api.getUserInfo()
       .then((user) => {
@@ -73,16 +87,11 @@ function App() {
           />
           <Footer />
 
-          <PopupWithForm name="edit" title="Edit profile"
-            isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
-            buttonText='Save'>
-            <input id="name-input" type="text" name="profileName" placeholder="Name" autoComplete="off"
-              className="popup__input popup__input_field_name" minLength="2" maxLength="40" required />
-            <span className="popup__input-error name-input-error"></span>
-            <input id="about-input" type="text" name="profileAbout" placeholder="About me" autoComplete="off"
-              className="popup__input popup__input_field_about-me" minLength="2" maxLength="200" required />
-            <span className="popup__input-error about-input-error"></span>
-          </PopupWithForm>
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}>
+          </EditProfilePopup>
 
           <PopupWithForm name="add" title="New place"
             isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}
