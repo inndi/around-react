@@ -9,6 +9,7 @@ import ImagePopup from "./ImagePopup";
 import { Api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "./EditProfilePopup";
+import { EditAvatarPopup } from "./EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -62,6 +63,19 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(fieldValue) {
+    Api.patchAvatar(fieldValue)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     Api.getUserInfo()
       .then((user) => {
@@ -90,8 +104,7 @@ function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}>
-          </EditProfilePopup>
+            onUpdateUser={handleUpdateUser} />
 
           <PopupWithForm name="add" title="New place"
             isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}
@@ -104,13 +117,10 @@ function App() {
             <span className="popup__input-error link-input-error"></span>
           </PopupWithForm>
 
-          <PopupWithForm name="edit-photo" title="Change profile picture"
-            isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
-            buttonText='Save'>
-            <input id="avaLink-input" type="url" name="avatarLink" placeholder="Avatar link" autoComplete="off"
-              className="popup__input popup__input_field_link" required />
-            <span className="popup__input-error avaLink-input-error"></span>
-          </PopupWithForm>
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar} />
 
           <PopupWithForm name="delete" title="Are you sure?"
             onClose={closeAllPopups} isOpen={isDeleteCardPopupOpen}

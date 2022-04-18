@@ -57,12 +57,12 @@ class ApiRequests {
       .then(this._checkResponse);
   }
 
-  patchAvatar(field) {
+  patchAvatar(fieldValue) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: field.avatarLink,
+        avatar: fieldValue.avatar,
       })
     })
       .then(this._checkResponse);
