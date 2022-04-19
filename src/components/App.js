@@ -11,6 +11,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "./EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
+import { ConfirmationPopup } from "./ConfirmationPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -36,8 +37,10 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function handleDeleteCardClick() {
+  function handleDeleteCardClick(card) {
     setIsDeleteCardPopupOpen(true);
+    setSelectedCard(card);
+    console.log(card);
   }
 
   function closeAllPopups() {
@@ -106,6 +109,9 @@ function App() {
         const newCards = cards.filter((card) => card._id !== currentCard._id);
         setCards(newCards);
       })
+      .then(() => {
+        closeAllPopups();
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -148,7 +154,6 @@ function App() {
             onCardClick={handleCardClick}
             cards={cards}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
           />
           <Footer />
 
@@ -167,10 +172,12 @@ function App() {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar} />
 
-          <PopupWithForm name="delete" title="Are you sure?"
-            onClose={closeAllPopups} isOpen={isDeleteCardPopupOpen}
-            buttonText='Yes' />
-
+          <ConfirmationPopup
+            isOpen={isDeleteCardPopupOpen}
+            onClose={closeAllPopups}
+            card={selectedCard}
+            onCardDelete={handleCardDelete}
+          />
 
           <ImagePopup
             card={selectedCard}

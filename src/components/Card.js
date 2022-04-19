@@ -20,7 +20,7 @@ function Card(props) {
   }
 
   function handleDeleteClick() {
-    props.onCardDelete(props.card);
+    props.onDeleteClick(props.card);
   }
 
   function handleClick() {
@@ -42,8 +42,7 @@ function Card(props) {
       <button
         className={cardDeleteButtonClassName}
         type="button"
-        onClick={handleDeleteClick}></button>
-      {/* onClick={props.onDeleteClick} */}
+        onClick={handleDeleteClick}> </button>
     </li>
   )
 
