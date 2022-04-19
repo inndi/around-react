@@ -83,23 +83,6 @@ class ApiRequests {
         .then(this._checkResponse);
     }
   }
-
-
-  // removeLike(itemId) {
-  //   return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-  //     method: 'DELETE',
-  //     headers: this._headers
-  //   })
-  //     .then(this._checkResponse);
-  // }
-
-  // addLike(itemId) {
-  //   return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-  //     method: 'PUT',
-  //     headers: this._headers
-  //   })
-  //     .then(this._checkResponse);
-  // }
 }
 
 export const Api = new ApiRequests({

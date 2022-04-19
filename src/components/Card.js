@@ -29,15 +29,20 @@ function Card(props) {
 
   return (
     <li className="card">
-      <div className="card__img"
+      <div
+        className="card__img"
         style={{ backgroundImage: `url(${props.card.link})` }}
         onClick={handleClick}></div>
       <h2 className="card__title">{props.card.name}</h2>
-      <button className={cardLikeButtonClassName} type="button"
+      <button
+        className={cardLikeButtonClassName}
+        type="button"
         onClick={handleLikeClick}></button>
       <p className="card__likes-amount">{props.card.likes.length}</p>
-      <button className={cardDeleteButtonClassName}
-        type="button" onClick={handleDeleteClick}></button>
+      <button
+        className={cardDeleteButtonClassName}
+        type="button"
+        onClick={handleDeleteClick}></button>
       {/* onClick={props.onDeleteClick} */}
     </li>
   )
