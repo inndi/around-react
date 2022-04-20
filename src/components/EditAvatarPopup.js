@@ -20,7 +20,7 @@ export function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
-      buttonText='Save'>
+      buttonText={props.buttonText}>
       <input
         ref={inputRef}
         id="avaLink-input"

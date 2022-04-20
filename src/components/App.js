@@ -25,15 +25,20 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
+  const [buttonText, setButtonText] = useState('');
+
   function handleEditProfileClick() {
+    setButtonText('Save');
     setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
+    setButtonText('Create');
     setIsAddPlacePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
+    setButtonText('Save');
     setIsEditAvatarPopupOpen(true);
   }
 
@@ -57,12 +62,14 @@ function App() {
   }
 
   function handleUpdateUser(userInfo) {
+    setButtonText('Saving...');
     Api.patchProfileData(userInfo)
       .then((user) => {
         setCurrentUser(user);
       })
       .then(() => {
         closeAllPopups();
+        setButtonText('Save');
       })
       .catch((err) => {
         console.log(err);
@@ -70,12 +77,15 @@ function App() {
   }
 
   function handleUpdateAvatar(fieldValue) {
+    setButtonText('Saving...');
     Api.patchAvatar(fieldValue)
       .then((user) => {
         setCurrentUser(user);
+
       })
       .then(() => {
         closeAllPopups();
+        setButtonText('Save');
       })
       .catch((err) => {
         console.log(err);
@@ -128,13 +138,14 @@ function App() {
   }, []);
 
   function handleAddPlaceSubmit(card) {
-    console.log(card);
+    setButtonText('Creating...');
     Api.postNewCardData(card)
       .then((card) => {
         setCards([card, ...cards]);
       })
       .then(() => {
         closeAllPopups();
+        setButtonText('Create');
       })
       .catch((err) => {
         console.log(err);
@@ -160,17 +171,20 @@ function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser} />
+            onUpdateUser={handleUpdateUser}
+            buttonText={buttonText} />
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            onAddPlaceSubmit={handleAddPlaceSubmit} />
+            onAddPlaceSubmit={handleAddPlaceSubmit}
+            buttonText={buttonText} />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar} />
+            onUpdateAvatar={handleUpdateAvatar}
+            buttonText={buttonText} />
 
           <ConfirmationPopup
             isOpen={isDeleteCardPopupOpen}

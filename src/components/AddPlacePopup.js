@@ -22,7 +22,7 @@ export function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
-      buttonText='Create'>
+      buttonText={props.buttonText}>
       <input
         ref={titleRef}
         id="title-input"
