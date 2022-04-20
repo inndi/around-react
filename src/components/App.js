@@ -4,7 +4,6 @@ import '../index.css';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { Api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -13,7 +12,35 @@ import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
 import { ConfirmationPopup } from "./ConfirmationPopup";
 
+// import { FormValidator } from "../utils/FormValidator";
+
 function App() {
+
+  // const validationConfig = {
+  //   formSelector: ".popup__form",
+  //   inputSelector: ".popup__input",
+  //   submitButtonSelector: ".popup__save-btn",
+  //   inactiveButtonClass: "popup__save-btn_disabled",
+  //   inputErrorClass: "popup__input_type_error",
+  //   errorClass: "popup__input-error_active",
+  // };
+
+  // const formValidators = {};
+
+  // const enableValidation = (config) => {
+  //   const formList = Array.from(document.querySelectorAll(config.formSelector));
+  //   formList.forEach((formElement) => {
+  //     const validator = new FormValidator(config, formElement);
+  //     const formName = formElement.getAttribute('name');
+
+  //     formValidators[formName] = validator;
+  //     validator.enableValidation();
+  //   });
+  // };
+
+  // enableValidation(validationConfig);
+
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -26,6 +53,7 @@ function App() {
   const [cards, setCards] = useState([]);
 
   const [buttonText, setButtonText] = useState('');
+  // const [selectedInput, setSelectedInput] = useState();
 
   function handleEditProfileClick() {
     setButtonText('Save');
@@ -37,6 +65,7 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+
   function handleEditAvatarClick() {
     setButtonText('Save');
     setIsEditAvatarPopupOpen(true);
@@ -45,7 +74,6 @@ function App() {
   function handleDeleteCardClick(card) {
     setIsDeleteCardPopupOpen(true);
     setSelectedCard(card);
-    console.log(card);
   }
 
   function closeAllPopups() {
@@ -75,6 +103,8 @@ function App() {
         console.log(err);
       });
   }
+
+
 
   function handleUpdateAvatar(fieldValue) {
     setButtonText('Saving...');
@@ -184,7 +214,8 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
-            buttonText={buttonText} />
+            buttonText={buttonText}
+          />
 
           <ConfirmationPopup
             isOpen={isDeleteCardPopupOpen}

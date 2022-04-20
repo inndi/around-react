@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export function AddPlacePopup(props) {
@@ -14,6 +14,11 @@ export function AddPlacePopup(props) {
       link: linkRef.current.value
     })
   }
+
+  useEffect(() => {
+    titleRef.current.value = '';
+    linkRef.current.value = '';
+  }, [props.onClose]);
 
   return (
     <PopupWithForm
@@ -34,7 +39,9 @@ export function AddPlacePopup(props) {
         minLength="1"
         maxLength="30"
         required />
-      <span className="popup__input-error title-input-error"></span>
+      <div className="popup__error-container">
+        <span className="popup__input-error title-input-error"></span>
+      </div>
       <input
         ref={linkRef}
         id="link-input"
@@ -44,7 +51,9 @@ export function AddPlacePopup(props) {
         autoComplete="off"
         className="popup__input popup__input_field_link"
         required />
-      <span className="popup__input-error link-input-error"></span>
+      <div className="popup__error-container">
+        <span className="popup__input-error link-input-error"></span>
+      </div>
     </PopupWithForm>
   )
 }

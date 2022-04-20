@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   constructor(selectors, formElement) {
     this._formSelector = selectors.formSelector;
     this._inactiveButtonClass = selectors.inactiveButtonClass;
@@ -75,5 +75,3 @@ class FormValidator {
     });
   };
 }
-
-export const Api = new ApiRequests();

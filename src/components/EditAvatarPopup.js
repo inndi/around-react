@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export function EditAvatarPopup(props) {
@@ -9,9 +9,13 @@ export function EditAvatarPopup(props) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: inputRef.current.value
+      avatar: inputRef.current.value,
     });
   }
+
+  useEffect(() => {
+    inputRef.current.value = '';
+  }, [props.onClose]);
 
   return (
     <PopupWithForm
@@ -30,7 +34,9 @@ export function EditAvatarPopup(props) {
         autoComplete="off"
         className="popup__input popup__input_field_link"
         required />
-      <span className="popup__input-error avaLink-input-error"></span>
+      <div className="popup__error-container">
+        <span className="popup__input-error avaLink-input-error"></span>
+      </div>
     </PopupWithForm>
   )
 }
