@@ -1,4 +1,4 @@
-class ApiRequests {
+class Api {
   constructor(fetchData) {
     this._baseUrl = fetchData.baseUrl;
     this._headers = fetchData.headers;
@@ -85,7 +85,7 @@ class ApiRequests {
   }
 }
 
-const api = new ApiRequests({
+const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b",
