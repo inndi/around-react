@@ -5,7 +5,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
-import Api from "../utils/api";
+import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "./EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
@@ -59,7 +59,7 @@ function App() {
 
   function handleUpdateUser(userInfo) {
     setButtonText('Saving...');
-    Api.patchProfileData(userInfo)
+    api.patchProfileData(userInfo)
       .then((user) => {
         setCurrentUser(user);
       })
@@ -76,7 +76,7 @@ function App() {
 
   function handleUpdateAvatar(fieldValue) {
     setButtonText('Saving...');
-    Api.patchAvatar(fieldValue)
+    api.patchAvatar(fieldValue)
       .then((user) => {
         setCurrentUser(user);
 
@@ -91,7 +91,7 @@ function App() {
   }
 
   useEffect(() => {
-    Api.getUserInfo()
+    api.getUserInfo()
       .then((user) => {
         setCurrentUser(user);
       })
@@ -102,7 +102,7 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(user => user._id === currentUser._id);
-    Api.changeLikeCardStatus(card._id, isLiked)
+    api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
       })
@@ -112,7 +112,7 @@ function App() {
   }
 
   function handleCardDelete(currentCard) {
-    Api.delete(currentCard._id)
+    api.delete(currentCard._id)
       .then(() => {
         const newCards = cards.filter((card) => card._id !== currentCard._id);
         setCards(newCards);
@@ -126,7 +126,7 @@ function App() {
   }
 
   useEffect(() => {
-    Api.getInitialCards()
+    api.getInitialCards()
       .then((res) => {
         setCards(res);
       })
@@ -137,7 +137,7 @@ function App() {
 
   function handleAddPlaceSubmit(card) {
     setButtonText('Creating...');
-    Api.postNewCardData(card)
+    api.postNewCardData(card)
       .then((card) => {
         setCards([card, ...cards]);
       })
