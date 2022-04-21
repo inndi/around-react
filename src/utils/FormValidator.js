@@ -1,4 +1,4 @@
-export class FormValidator {
+class FormValidator {
   constructor(selectors, formElement) {
     this._inactiveButtonClass = selectors.inactiveButtonClass;
     this._inputErrorClass = selectors.inputErrorClass;
@@ -74,3 +74,5 @@ export class FormValidator {
     });
   };
 }
+
+export default FormValidator;

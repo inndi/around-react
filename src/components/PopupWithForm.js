@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FormValidator } from "../utils/FormValidator";
+import FormValidator from "../utils/FormValidator";
 
 function PopupWithForm(props) {
 
