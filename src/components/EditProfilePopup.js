@@ -19,7 +19,7 @@ export function EditProfilePopup(props) {
   useEffect(() => {
     inputNameRef.current.value = currentUser.name;
     inputDescriptionRef.current.value = currentUser.about;
-  }, [props.onClose]);
+  }, [props.isOpen]);
 
   function handleNameChange(e) {
     setName(e.target.value);

@@ -12,48 +12,16 @@ import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
 import { ConfirmationPopup } from "./ConfirmationPopup";
 
-// import { FormValidator } from "../utils/FormValidator";
-
 function App() {
-
-  // const validationConfig = {
-  //   formSelector: ".popup__form",
-  //   inputSelector: ".popup__input",
-  //   submitButtonSelector: ".popup__save-btn",
-  //   inactiveButtonClass: "popup__save-btn_disabled",
-  //   inputErrorClass: "popup__input_type_error",
-  //   errorClass: "popup__input-error_active",
-  // };
-
-  // const formValidators = {};
-
-  // const enableValidation = (config) => {
-  //   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  //   formList.forEach((formElement) => {
-  //     const validator = new FormValidator(config, formElement);
-  //     const formName = formElement.getAttribute('name');
-
-  //     formValidators[formName] = validator;
-  //     validator.enableValidation();
-  //   });
-  // };
-
-  // enableValidation(validationConfig);
-
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isSelectedCard, setIsSelectedCard] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-
   const [currentUser, setCurrentUser] = useState({});
-
   const [cards, setCards] = useState([]);
-
   const [buttonText, setButtonText] = useState('');
-  // const [selectedInput, setSelectedInput] = useState();
 
   function handleEditProfileClick() {
     setButtonText('Save');
