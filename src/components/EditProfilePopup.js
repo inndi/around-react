@@ -1,38 +1,23 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export function EditProfilePopup(props) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-
   const currentUser = useContext(CurrentUserContext);
-  const { handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation()
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
     resetForm();
+    setValues({ ...values, profileName: currentUser.name, profileAbout: currentUser.about });
   }, [currentUser, props.isOpen]);
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-    handleChange(e);
-  }
-
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
-    handleChange(e);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     props.onUpdateUser({
-      name,
-      about: description,
+      name: values.profileName,
+      about: values.profileAbout
     })
   }
 
@@ -49,8 +34,8 @@ export function EditProfilePopup(props) {
         type="text"
         name="profileName"
         placeholder="Name"
-        onChange={handleNameChange}
-        value={name || ""}
+        onChange={handleChange}
+        value={values.profileName || ""}
         autoComplete="off"
         className="popup__input popup__input_field_name"
         minLength="2"
@@ -64,8 +49,8 @@ export function EditProfilePopup(props) {
         type="text"
         name="profileAbout"
         placeholder="About me"
-        onChange={handleDescriptionChange}
-        value={description || ""}
+        onChange={handleChange}
+        value={values.profileAbout || ""}
         autoComplete="off"
         className="popup__input popup__input_field_about-me"
         minLength="2"

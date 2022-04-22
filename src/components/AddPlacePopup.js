@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export function AddPlacePopup(props) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
-  const { handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-    handleChange(e);
-  }
-
-  function handleLinkChange(e) {
-    setLink(e.target.value);
-    handleChange(e);
-  }
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
 
     props.onAddPlaceSubmit({
-      name,
-      link
+      name: values.placeTitle,
+      link: values.placeLink
     })
   }
 
   useEffect(() => {
-    setName('');
-    setLink('');
     resetForm();
   }, [props.isOpen]);
 
@@ -42,8 +28,8 @@ export function AddPlacePopup(props) {
       onSubmit={handleSubmit}
       buttonText={props.buttonText}>
       <input
-        onChange={handleNameChange}
-        value={name}
+        onChange={handleChange}
+        value={values.placeTitle || ''}
         id="title-input"
         type="text"
         name="placeTitle"
@@ -57,8 +43,8 @@ export function AddPlacePopup(props) {
         <span className="popup__input-error title-input-error">{errors.placeTitle}</span>
       </div>
       <input
-        onChange={handleLinkChange}
-        value={link}
+        onChange={handleChange}
+        value={values.placeLink || ''}
         id="link-input"
         type="url"
         name="placeLink"

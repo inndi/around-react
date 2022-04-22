@@ -1,21 +1,19 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export function EditAvatarPopup(props) {
-  const inputRef = useRef();
-  const { handleChange, errors, isValid, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: inputRef.current.value
+      avatar: values.avatarLink
     });
   }
 
   useEffect(() => {
-    inputRef.current.value = '';
     resetForm();
   }, [props.isOpen]);
 
@@ -29,8 +27,8 @@ export function EditAvatarPopup(props) {
       onSubmit={handleSubmit}
       buttonText={props.buttonText}>
       <input
-        ref={inputRef}
         onChange={handleChange}
+        value={values.avatarLink || ""}
         id="avaLink-input"
         type="url"
         name="avatarLink"
