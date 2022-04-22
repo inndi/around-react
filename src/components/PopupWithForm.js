@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import FormValidator from "../utils/FormValidator";
+// import FormValidator from "../utils/FormValidator";
 
 function PopupWithForm(props) {
 
-  const validationConfig = {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__save-btn",
-    inactiveButtonClass: "popup__save-btn_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__input-error_active",
-  };
+  // const validationConfig = {
+  //   inputSelector: ".popup__input",
+  //   submitButtonSelector: ".popup__save-btn",
+  //   inactiveButtonClass: "popup__save-btn_disabled",
+  //   inputErrorClass: "popup__input_type_error",
+  //   errorClass: "popup__input-error_active",
+  // };
 
-  useEffect(() => {
-    const formElement = document.querySelector(`.popup_${props.name}`);
-    const validator = new FormValidator(validationConfig, formElement);
+  // useEffect(() => {
+  //   const formElement = document.querySelector(`.popup_${props.name}`);
+  //   const validator = new FormValidator(validationConfig, formElement);
 
-    validator.enableValidation();
-  }, []);
+  //   validator.enableValidation();
+  // }, []);
 
   return (
     <div className={`popup popup_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
@@ -27,7 +27,7 @@ function PopupWithForm(props) {
           name={`register-${props.name}`}
           onSubmit={props.onSubmit}>
           {props.children}
-          <button className="popup__save-btn" type="submit">{props.buttonText}</button>
+          <button className={`popup__save-btn ${!props.isValid ? 'popup__save-btn_disabled' : ''}`} type="submit">{props.buttonText}</button>
         </form>
         <button className="popup__close-btn hover-btn" onClick={props.onClose} type="button"></button>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 export function EditProfilePopup(props) {
   const [name, setName] = useState('');
@@ -11,16 +12,19 @@ export function EditProfilePopup(props) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
+    resetForm();
   }, [currentUser, props.isOpen]);
 
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
+  // function handleNameChange(e) {
+  //   setName(e.target.value);
+  //   handleChange(e);
+  // }
 
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
-  }
+  // function handleDescriptionChange(e) {
+  //   setDescription(e.target.value);
+  //   handleChange(e);
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,11 +35,15 @@ export function EditProfilePopup(props) {
     })
   }
 
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+  console.log(values);
+
 
   return (
     <PopupWithForm name="edit"
       title="Edit profile"
       isOpen={props.isOpen}
+      isValid={isValid}
       onClose={props.onClose}
       onSubmit={handleSubmit}
       buttonText={props.buttonText}>
@@ -44,22 +52,22 @@ export function EditProfilePopup(props) {
         type="text"
         name="profileName"
         placeholder="Name"
-        onChange={handleNameChange}
-        value={name || ""}
+        onChange={handleChange}
+        // value={name || ""}
         autoComplete="off"
         className="popup__input popup__input_field_name"
         minLength="2"
         maxLength="40"
         required />
       <div className="popup__error-container">
-        <span className="popup__input-error name-input-error"></span>
+        <span className="popup__input-error name-input-error">{errors.profileName}</span>
       </div>
       <input
         id="about-input"
         type="text"
         name="profileAbout"
         placeholder="About me"
-        onChange={handleDescriptionChange}
+        onChange={handleChange}
         value={description || ""}
         autoComplete="off"
         className="popup__input popup__input_field_about-me"
@@ -67,7 +75,7 @@ export function EditProfilePopup(props) {
         maxLength="200"
         required />
       <div className="popup__error-container">
-        <span className="popup__input-error about-input-error"></span>
+        <span className="popup__input-error about-input-error">{errors.profileAbout}</span>
       </div>
     </PopupWithForm>
   )
