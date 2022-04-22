@@ -8,6 +8,8 @@ export function EditProfilePopup(props) {
   const [description, setDescription] = useState('');
 
   const currentUser = useContext(CurrentUserContext);
+  const { handleChange, errors, isValid, resetForm } = useFormAndValidation();
+
 
   useEffect(() => {
     setName(currentUser.name);
@@ -15,16 +17,15 @@ export function EditProfilePopup(props) {
     resetForm();
   }, [currentUser, props.isOpen]);
 
+  function handleNameChange(e) {
+    setName(e.target.value);
+    handleChange(e);
+  }
 
-  // function handleNameChange(e) {
-  //   setName(e.target.value);
-  //   handleChange(e);
-  // }
-
-  // function handleDescriptionChange(e) {
-  //   setDescription(e.target.value);
-  //   handleChange(e);
-  // }
+  function handleDescriptionChange(e) {
+    setDescription(e.target.value);
+    handleChange(e);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,10 +35,6 @@ export function EditProfilePopup(props) {
       about: description,
     })
   }
-
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
-  console.log(values);
-
 
   return (
     <PopupWithForm name="edit"
@@ -52,8 +49,8 @@ export function EditProfilePopup(props) {
         type="text"
         name="profileName"
         placeholder="Name"
-        onChange={handleChange}
-        // value={name || ""}
+        onChange={handleNameChange}
+        value={name || ""}
         autoComplete="off"
         className="popup__input popup__input_field_name"
         minLength="2"
@@ -67,7 +64,7 @@ export function EditProfilePopup(props) {
         type="text"
         name="profileAbout"
         placeholder="About me"
-        onChange={handleChange}
+        onChange={handleDescriptionChange}
         value={description || ""}
         autoComplete="off"
         className="popup__input popup__input_field_about-me"
