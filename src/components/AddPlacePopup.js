@@ -1,11 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export function AddPlacePopup(props) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
-  const nameRef = useRef();
-  const linkRef = useRef();
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -25,8 +23,8 @@ export function AddPlacePopup(props) {
   }
 
   useEffect(() => {
-    nameRef.current.value = '';
-    linkRef.current.value = '';
+    setName('');
+    setLink('');
   }, [props.isOpen]);
 
   return (
@@ -38,8 +36,8 @@ export function AddPlacePopup(props) {
       onSubmit={handleSubmit}
       buttonText={props.buttonText}>
       <input
-        ref={nameRef}
         onChange={handleNameChange}
+        value={name}
         id="title-input"
         type="text"
         name="placeTitle"
@@ -53,8 +51,8 @@ export function AddPlacePopup(props) {
         <span className="popup__input-error title-input-error"></span>
       </div>
       <input
-        ref={linkRef}
         onChange={handleLinkChange}
+        value={link}
         id="link-input"
         type="url"
         name="placeLink"

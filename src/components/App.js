@@ -52,6 +52,19 @@ function App() {
     setIsSelectedCard(false);
   }
 
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+
+    document.addEventListener('keydown', closeByEscape)
+
+    return () => document.removeEventListener('keydown', closeByEscape)
+  }, [])
+
   function handleCardClick(card) {
     setIsSelectedCard(true);
     setSelectedCard(card);
@@ -65,14 +78,14 @@ function App() {
       })
       .then(() => {
         closeAllPopups();
-        setButtonText('Save');
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(function () {
+        setButtonText('Save');
       });
   }
-
-
 
   function handleUpdateAvatar(fieldValue) {
     setButtonText('Saving...');
@@ -83,10 +96,12 @@ function App() {
       })
       .then(() => {
         closeAllPopups();
-        setButtonText('Save');
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(function () {
+        setButtonText('Save');
       });
   }
 
@@ -143,10 +158,12 @@ function App() {
       })
       .then(() => {
         closeAllPopups();
-        setButtonText('Create');
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(function () {
+        setButtonText('Create');
       });
   }
 
